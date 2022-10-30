@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import NodeForm from "./NodeForm";
 
 export default function (probs) {
-  const [isLeaf, setIsLeaf] = useState(true);
+  const [isLeaf, setIsLeaf] = useState(false);
   const toggleNodeStatus = (status) => (e) => {
     console.log("Clicked: ", status);
     status === "node" ? setIsLeaf(false) : setIsLeaf(true);
@@ -35,8 +35,8 @@ export default function (probs) {
           nodeObject={probs.nodeObject}
           leafStatus={probs.leafStatus}
           nodeInformation={probs.nodeInformation}
-          dummyData={probs.dummyData}
-          // setDummyData={probs.setDummyData}
+          // dummyData={probs.dummyData}
+          setRenderTree={probs.setRenderTree}
         />
       </div>
     </>

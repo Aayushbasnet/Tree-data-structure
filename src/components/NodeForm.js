@@ -6,22 +6,35 @@ export default function NodeForm(probs) {
   const [submitStatus, setSubmitStatus] = useState(false);
   
   const addData = () => {
-    console.log("sdfs", probs);
+    console.log("form probs: ", probs);
     const parentData = probs. nodeInformation;
     const leafStatus = probs.leafStatus;
-
-    if (leafStatus) {
-      return alert("Cannot add in leaf");
-    } else {
-      console.log(label, description, parentData.id, probs.nodeStatus);
-      probs.nodeObject.add(label, description, parentData.id, probs.nodeStatus);
-      alert("Successfully added");
-    }
+    // console.log(parentData);
+    if(!parentData){
+      alert("Please select a parent");
+    }else{
+      if (leafStatus) {
+        return alert("Cannot add in leaf");
+      } else {
+        console.log(label, description, parentData.id, probs.nodeStatus);
+        probs.nodeObject.add(label, description, parentData.id, probs.nodeStatus);
+        probs.setRenderTree(label);
+        alert("Successfully added");
+      };
+    };
   };
 
   return (
     <>
-      <h4 style={{fontFamily: "'Cinzel', serif"}}>Fill {probs.nodeStatus ? "Leaf" : "Node"} details</h4>
+      <div style={{fontFamily: "'Cinzel', serif", fontSize:'40px'}}>Fill {probs.nodeStatus ? "Leaf" : "Node"} details</div>
+      <p>Selected parent is : 
+        <span style={{
+          fontSize:'24px',
+          marginLeft:'10px'
+        }}>
+          {probs. nodeInformation ? probs. nodeInformation.label : "None"}
+        </span>
+      </p>
       <div>
         <form>
           {/* label */}

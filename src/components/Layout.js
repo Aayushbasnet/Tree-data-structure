@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useEffect, useState} from "react";
 import Searchbar from "./Searchbar";
 import Addbutton from "./Addbutton";
 import NodeInformation from "./NodeInformation";
@@ -10,10 +10,17 @@ export default function Layout() {
   const [newTreeStructure, setNewTreeStructure] = useState(new TreeStructure());
   const [nodeInformation, setNodeInformation] = useState();
   const [leafStatus, setLeafStatus] = useState();
+  const [renderTree, setRenderTree] = useState("");
+  
 
-  // const [dummyData, setDummyData] = useState(newTreeStructure.totalNode);
-  const dummyData = newTreeStructure.queue;
-  console.log(dummyData);
+  const [dummyData, setDummyData] = useState(newTreeStructure.queue);
+  useEffect(()=>{
+    setDummyData(newTreeStructure.queue);
+    console.log("RenderTree in layout: ",renderTree);
+  },[renderTree]);
+
+  // const dummyData = newTreeStructure.queue;
+  console.log("dummydata: ",dummyData);
   // newTreeStructure.add("A", "This is child node", 1);
   // const dummyData = JSON.parse(localStorage.getItem('nodeDetail'));
   // [
@@ -62,6 +69,7 @@ export default function Layout() {
         <div className="col-sm-5 mx-5 py-5 shadow">
           <Tree
             data={dummyData}
+            // treeData={treeData}
             setNodeInformation={setNodeInformation}
             setLeafStatus={setLeafStatus}
           />
@@ -74,17 +82,6 @@ export default function Layout() {
             height: "100%",
           }}
         >
-          {/* Add button section */}
-          <div className="row mb-1">
-            <Addbutton
-              nodeObject={newTreeStructure}
-              leafStatus={leafStatus}
-              nodeInformation={nodeInformation}
-              // dummyData={dummyData}
-              // setDummyData={setDummyData}
-            />
-          </div>
-
           {/* Information section */}
           <div className="row pt-2">
             <NodeInformation
@@ -92,6 +89,18 @@ export default function Layout() {
               nodeInformation={nodeInformation}
             />
           </div>
+          {/* Add button section */}
+          <div className="row mt-5">
+            <Addbutton
+              nodeObject={newTreeStructure}
+              leafStatus={leafStatus}
+              nodeInformation={nodeInformation}
+              // dummyData={dummyData}
+              setRenderTree={setRenderTree}
+            />
+          </div>
+
+          
         </div>
       </div>
     </div>

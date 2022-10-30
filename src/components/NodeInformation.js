@@ -6,23 +6,23 @@ export default function NodeInformation(probs) {
 
   useEffect(() => {
     setNodePath(probs.searchPathObject.traversePath(probs.nodeInformation?.id));
-    console.log(nodePath);
+    // console.log(nodePath);
   }, [probs.nodeInformation]);
 
   return (
     <>
       <div>
-        <h1>NodeInformation</h1>
+        <div style={{fontFamily: "'Cinzel', serif", fontSize:'40px'}}>Node Information</div>
         <>
           <p> <span style={{
             fontSize:'22px',
-          }}> Label: </span> <div style={{borderBottom:'1px solid gray'}}>{probs.nodeInformation?.label}</div></p>
+          }}> Label </span> <span style={{borderBottom:'1px solid gray', display:'block'}}>{probs.nodeInformation?.label}</span></p>
           <p><span style={{
             fontSize:'22px',
-          }}> Description: </span> <div style={{borderBottom:'1px solid gray'}}>{probs.nodeInformation?.description}</div></p>
+          }}> Description </span> <span style={{borderBottom:'1px solid gray', display:'block'}}>{probs.nodeInformation?.description}</span></p>
           <p><span style={{
             fontSize:'22px',
-          }}> Node or Leaf: </span><div style={{borderBottom:'1px solid gray'}}>{probs.nodeInformation? probs.nodeInformation?.isLeaf?"Is leaf.": "Is node" : ""}</div></p>
+          }}> Node or Leaf ?</span><span style={{borderBottom:'1px solid gray', display:'block'}}>{probs.nodeInformation ? probs.nodeInformation?.isLeaf?"LEAF": "NODE" : ""}</span></p>
         </>
       </div>
       <div><span style={{

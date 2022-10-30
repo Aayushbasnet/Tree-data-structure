@@ -10,9 +10,22 @@ import {
 export default function Tree({data, setNodeInformation, setLeafStatus}) {
   const [isVisible, setIsVisible] = useState(false);
   
+  const nodeHighlighter = (nodes, data)=>{
+    nodes.forEach(node =>{
+      node.style.backgroundColor='white';
+      // console.log("key is : ", node.dataset.key);
+      if(node.dataset.key == data){
+        // console.log("id", node.dataset.key);
+        node.style.backgroundColor = '#98A8F8';
+      }
+    });
+  };
   const nodeDetails = (data) => (e) => {
     setNodeInformation(data);
     setLeafStatus(data.isLeaf);
+    console.log(data.id);
+    const nodes = document.querySelectorAll('.nodes');
+    nodeHighlighter(nodes, data.id);
   };
 
   const toggleTreeChildren = () => {
@@ -21,16 +34,16 @@ export default function Tree({data, setNodeInformation, setLeafStatus}) {
   return (
     <>
       <div onClick={toggleTreeChildren}>
-        {!isVisible ? <CaretDownOutlined /> : <CaretUpOutlined />}
+        {isVisible ? <CaretUpOutlined /> : <CaretDownOutlined />}
 
       </div>
       {isVisible ? (
-        data.map((child, index) => {
+        data.map((child) => {
           return (
-            <>
+            <div key={child.id}>
               <div
-                key={index}
                 className="verticalLine"
+                
                 style={{
                   marginLeft: "20px",
                   textAlign: "start",
@@ -40,27 +53,21 @@ export default function Tree({data, setNodeInformation, setLeafStatus}) {
               >
                 {!child.isLeaf ? (
                   <button
-                    className="btn btn-light nodeButton"
-                    key={child.id}
+                    data-key={child.id}
+                    className="btn btn-light nodeButton nodes"
                     onClick={nodeDetails(child)}
-                    style={{
-                      borderBottom: '1px solid red'
-                    }}
                   >
                     
                     <FolderOutlined />
-                    <span style={{ paddingLeft: "10px" }}>
+                    <span style={{ paddingLeft: "10px" }} data-index>
                       {child.label}
                     </span>
                   </button>
                 ) : (
                   <button
-                    className="btn btn-light leafButton"
-                    key={child.id}
+                    data-key={child.id}
+                    className="btn btn-light leafButton nodes"
                     onClick={nodeDetails(child)}
-                    style={{
-                      borderBottom: '1px solid red'
-                    }}
                   >
                     
                     <FileOutlined />
@@ -74,7 +81,7 @@ export default function Tree({data, setNodeInformation, setLeafStatus}) {
                 
                 <Tree data={child.children} setNodeInformation={setNodeInformation} setLeafStatus={setLeafStatus} />
               </div>
-            </>
+            </div>
           );
         })
       ) : (
@@ -83,3 +90,92 @@ export default function Tree({data, setNodeInformation, setLeafStatus}) {
     </>
   );
 }
+
+
+// export default function Tree({data, setNodeInformation, setLeafStatus}) {
+//   const [isVisible, setIsVisible] = useState(true);
+//   const [label, setLabel] = useState('open');
+//   const [treeData, setTreeData] = useState(data);
+//   console.log("data: ",data);
+//   console.log("treeData: ",treeData);
+
+
+  
+//   const nodeDetails = (data) => (e) => {
+//     setNodeInformation(data);
+//     setLeafStatus(data.isLeaf);
+//     setLabel(data.label);  
+//   };
+
+//   const toggleTreeChildren = () => {
+//     setIsVisible(!isVisible);
+//   };
+//   return (
+//     <>
+//       <div onClick={toggleTreeChildren}>
+//         {/* {!isVisible ? <CaretDownOutlined /> : <CaretUpOutlined />} */}
+//         {isVisible ? label : "close"}
+//       </div>
+//       {isVisible ? (
+//         data.map((child) => {
+//           console.log("Map: ", child);
+//           return (
+//             <div key={child.id}>
+//               <div
+//                 key={child.id}
+//                 className="verticalLine"
+//                 style={{
+//                   marginLeft: "20px",
+//                   textAlign: "start",
+//                   cursor: "pointer",
+//                   borderLeft: '1px solid #aaaa'
+//                 }}
+//               >
+//                 {!child.isLeaf ? (
+//                   <button
+//                     className="btn btn-light nodeButton"
+//                     key={child.id}
+//                     onClick={nodeDetails(child)}
+//                     style={{
+//                       borderBottom: '1px solid red'
+//                     }}
+//                   >
+                    
+//                     <FolderOutlined />
+//                     <span style={{ paddingLeft: "10px" }}>
+//                       {child.label}
+//                     </span>
+//                   </button>
+//                 ) : (
+//                   <button
+//                     className="btn btn-light leafButton"
+//                     key={child.id}
+//                     onClick={nodeDetails(child)}
+                    
+//                     style={{
+//                       borderBottom: '1px solid red'
+//                     }}
+//                   >
+                    
+//                     <FileOutlined />
+//                     <span style={{ 
+//                       paddingLeft: "15px",
+//                       }}>
+//                       {child.label}
+//                     </span>
+//                   </button>
+//                 )}
+//                 <Tree data={child.children} setNodeInformation={setNodeInformation} setLeafStatus={setLeafStatus} />
+//               </div>
+//             </div>
+//           );
+//         })
+//       ) : (
+//         <></>
+//       )}
+//     </>
+//   );
+// }
+
+
+
