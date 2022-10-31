@@ -4,11 +4,13 @@ import Addbutton from "./Addbutton";
 import NodeInformation from "./NodeInformation";
 import Tree from "./Tree";
 import { TreeStructure } from "../classBluePrint";
+import SearchResult from "./SearchResult";
 import './css/Layout.css';
 
 export default function Layout() {
   const [newTreeStructure, setNewTreeStructure] = useState(new TreeStructure());
   const [nodeInformation, setNodeInformation] = useState();
+  const [searchInformation, setSearchInformation] = useState([]);
   const [leafStatus, setLeafStatus] = useState();
   const [renderTree, setRenderTree] = useState("");
   
@@ -60,7 +62,10 @@ export default function Layout() {
       {/* searchbar */}
       <form>
         <div className="row mb-5 p-3 border-bottom d-flex flex-row justify-content-center shadow-sm">
-          <Searchbar />
+          <Searchbar 
+            nodeObject={newTreeStructure} 
+            setSearchInformation={setSearchInformation}
+            />
         </div>
       </form>
       {/* main section */}
@@ -99,10 +104,16 @@ export default function Layout() {
               setRenderTree={setRenderTree}
             />
           </div>
-
-          
+        </div>
+        {/* Display search result */}
+        <div className="row my-5 p-3 border-bottom d-flex flex-row justify-content-center shadow-sm">
+          <h1>Search Result</h1>
+          <SearchResult
+              searchInformation={searchInformation}
+            />
         </div>
       </div>
+          
     </div>
   );
 }

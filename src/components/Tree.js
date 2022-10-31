@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Flip from 'react-reveal/Flip';
 import {
   CaretUpOutlined,
   CaretDownOutlined,
@@ -23,7 +24,7 @@ export default function Tree({data, setNodeInformation, setLeafStatus}) {
   const nodeDetails = (data) => (e) => {
     setNodeInformation(data);
     setLeafStatus(data.isLeaf);
-    console.log(data.id);
+    console.log(data);
     const nodes = document.querySelectorAll('.nodes');
     nodeHighlighter(nodes, data.id);
   };
@@ -52,31 +53,35 @@ export default function Tree({data, setNodeInformation, setLeafStatus}) {
                 }}
               >
                 {!child.isLeaf ? (
-                  <button
-                    data-key={child.id}
-                    className="btn btn-light nodeButton nodes"
-                    onClick={nodeDetails(child)}
-                  >
-                    
-                    <FolderOutlined />
-                    <span style={{ paddingLeft: "10px" }} data-index>
-                      {child.label}
-                    </span>
-                  </button>
+                  <Flip left>
+                    <button
+                      data-key={child.id}
+                      className="btn btn-light nodeButton nodes"
+                      onClick={nodeDetails(child)}
+                    >
+                      
+                      <FolderOutlined />
+                      <span style={{ paddingLeft: "10px" }} data-index>
+                        {child.label}
+                      </span>
+                    </button>
+                  </Flip>
                 ) : (
-                  <button
-                    data-key={child.id}
-                    className="btn btn-light leafButton nodes"
-                    onClick={nodeDetails(child)}
-                  >
-                    
-                    <FileOutlined />
-                    <span style={{ 
-                      paddingLeft: "15px",
-                      }}>
-                      {child.label}
-                    </span>
-                  </button>
+                  <Flip left>
+                    <button
+                      data-key={child.id}
+                      className="btn btn-light leafButton nodes"
+                      onClick={nodeDetails(child)}
+                    >
+                      
+                      <FileOutlined />
+                      <span style={{ 
+                        paddingLeft: "15px",
+                        }}>
+                        {child.label}
+                      </span>
+                    </button>
+                    </Flip>
                 )}
                 
                 <Tree data={child.children} setNodeInformation={setNodeInformation} setLeafStatus={setLeafStatus} />

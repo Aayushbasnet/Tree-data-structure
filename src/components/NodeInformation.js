@@ -28,7 +28,11 @@ export default function NodeInformation(probs) {
       <div><span style={{
             fontSize:'22px',
             paddingBottom:'50px'
-          }}> Path: </span> <div style={{borderBottom:'1px solid gray'}}>{nodePath ? nodePath : "None"}</div></div>
+          }}> Path: </span> 
+            <div style={{borderBottom:'1px solid gray'}}>
+              {nodePath ? nodePath : "None"}
+            </div>
+      </div>
       {/* {path ? <div>Path: {path}</div> : <div>Path : none</div>} */}
     </>
   );

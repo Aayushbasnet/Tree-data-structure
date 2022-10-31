@@ -28,6 +28,7 @@ export class TreeStructure {
   public queue: Array<Node> = [];
   public allNodeQueue: Array<Node> = [];
   public nodePath: string = "";
+  public searchData:Array<Node>=[];
   public constructor() {
     this.root = null;
     this.add("Root", "This is a parent node", null, true);
@@ -62,7 +63,7 @@ export class TreeStructure {
     // for(let i=0; i < this.totalNode.length; i++){
     //     console.log("New root: ",this.totalNode[i]);
     // };
-  }
+  };
   traversePath(ownId: number | null): string {
     this.nodePath = '';
     this.allNodeQueue.map((node) => {
@@ -73,14 +74,27 @@ export class TreeStructure {
       }
     });
     return this.nodePath;
-  }
+  };
+
+  search(label: string | number){
+    this.searchData=[];
+    this.allNodeQueue.map(node=>{
+      if(node.label==label){
+        this.searchData.push(node);
+        console.log("Search: ",node);
+      }
+    });
+    return this.searchData;
+  };
 }
 // const test = new TreeStructure();
 // // console.log("Actual object before: ", test);
 
-// // test.add('abc', "test 1", null,false);s
+// test.add('abc', "test 1", null,false);s
 // test.add('xyz', "test 2", 1,true);
 // test.add('qwe', "test 3", 1, false);
+// const searchx = test.search('xyz');
+// console.log(searchx);
 // // test.add('deep', "test 4", null);
 // test.add('rabin', "test 4", 2, false);
 // const val = test.traversePath(4);
